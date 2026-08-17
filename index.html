@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recruit Pranav Baheti | EDCIC Application</title>
-    <!-- Canvas Confetti Library -->
+    <title>Pranav Baheti | EDCIC Candidate Portal</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent-color: #38bdf8;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
+            --bg: #0b0f19;
+            --card-bg: #151c2c;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --green: #22c55e;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: #1e293b;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -29,125 +30,178 @@
         }
 
         .container {
-            max-width: 650px;
+            max-width: 700px;
             width: 100%;
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--border);
         }
 
-        .badge {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent-color);
-            padding: 6px 12px;
+        .header-tag {
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             display: inline-block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         h1 {
-            margin: 0 0 8px 0;
-            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #fff 0%, var(--muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        p.subtitle {
-            color: var(--text-muted);
-            margin-top: 0;
-            margin-bottom: 24px;
-            font-size: 0.95rem;
+        /* Terminal Bar */
+        .terminal {
+            background: #070a12;
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 25px;
         }
 
-        .nav-tabs {
+        /* Valuation Score Meter */
+        .score-container {
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .score-header {
             display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 33%;
+            background: linear-gradient(90deg, var(--accent), var(--green));
+            transition: width 0.4s ease;
+        }
+
+        /* Tabs */
+        .grid-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin-bottom: 20px;
-            flex-wrap: wrap;
         }
 
-        .tab-btn {
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 10px 16px;
-            border-radius: 8px;
+        .tab-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 10px;
+            color: var(--muted);
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            flex: 1;
-            min-width: 140px;
             text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
 
-        .tab-btn:hover {
-            border-color: var(--accent-color);
-            color: var(--text-color);
+        .tab-card:hover {
+            border-color: var(--accent);
+            color: var(--text);
         }
 
-        .tab-btn.active {
-            background: var(--accent-color);
-            color: #0f172a;
-            border-color: var(--accent-color);
+        .tab-card.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        .content-card {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--border-color);
+        /* Display Panel */
+        .panel {
+            background: rgba(7, 10, 18, 0.6);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 20px;
-            min-height: 140px;
-            margin-bottom: 24px;
+            padding: 24px;
+            min-height: 160px;
+            margin-bottom: 25px;
         }
 
-        .content-panel {
+        .panel-content {
             display: none;
         }
 
-        .content-panel.active {
+        .panel-content.active {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: slideUp 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .cta-section {
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
+        ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+            color: var(--muted);
         }
 
-        .approve-btn {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+        li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        li strong {
+            color: var(--text);
+        }
+
+        /* Button */
+        .action-btn {
+            background: linear-gradient(135deg, var(--green), #15803d);
             color: white;
             border: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            font-size: 1rem;
+            width: 100%;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 1.05rem;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
-            width: 100%;
+            transition: all 0.2s ease;
         }
 
-        .approve-btn:hover {
-            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+        .action-btn:hover {
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
+            transform: translateY(-1px);
         }
 
-        .approve-btn:active {
-            transform: scale(0.98);
-        }
-
-        .status-message {
-            margin-top: 12px;
-            font-size: 0.9rem;
-            color: #4ade80;
+        .success-banner {
             display: none;
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid var(--green);
+            color: #4ade80;
+            border-radius: 8px;
+            text-align: center;
             font-weight: 600;
         }
     </style>
@@ -155,75 +209,93 @@
 <body>
 
 <div class="container">
-    <span class="badge">EDCIC Recruitment 2026</span>
-    <h1>Pranav Baheti | Interactive Profile</h1>
-    <p class="subtitle">Select a focus area to evaluate fit for the Entrepreneurship Cell.</p>
+    <span class="header-tag">EDCIC RECRUITMENT EVALUATION PORTAL</span>
+    <h1>Pranav Baheti</h1>
 
-    <!-- Navigation Buttons -->
-    <div class="nav-tabs">
-        <button class="tab-btn active" onclick="showTab('pitching')">Pitching & Strategy</button>
-        <button class="tab-btn" onclick="showTab('ai')">AI & Tech Workflows</button>
-        <button class="tab-btn" onclick="showTab('academics')">Academic Fit</button>
+    <!-- Terminal Output -->
+    <div class="terminal">
+        > system.initialize(applicant: "Pranav Baheti")... <span style="color:#4ade80;">READY</span>
+    </div>
+
+    <!-- Live Valuation Bar -->
+    <div class="score-container">
+        <div class="score-header">
+            <span>EDCIC Team Alignment:</span>
+            <span id="scoreText" style="color:var(--accent);">33% Evaluated</span>
+        </div>
+        <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="grid-tabs">
+        <div class="tab-card active" onclick="activateTab('pitch', 33)">1. Pitching</div>
+        <div class="tab-card" onclick="activateTab('tech', 66)">2. AI Workflows</div>
+        <div class="tab-card" onclick="activateTab('academics', 100)">3. Strategy</div>
     </div>
 
     <!-- Content Panels -->
-    <div class="content-card">
-        <!-- Panel 1 -->
-        <div id="pitching" class="content-panel active">
-            <h3 style="margin-top:0; color: var(--accent-color);">Pitching & Event Presentation</h3>
-            <p><strong>Shark Tank Winner (QMS Salt Lake Fest):</strong> Built the business narrative, market positioning, and value proposition live. Presented and defended the pitch in front of judges to secure 1st place[cite: 1].</p>
-            <p><strong>Diplomatic Debate:</strong> Received a Verbal Mention at the Calcutta Boys' School Model United Nations for active diplomatic simulation and clear public articulation[cite: 1].</p>
+    <div class="panel">
+        <div id="pitch" class="panel-content active">
+            <h3 style="margin-top:0; color:var(--accent);">Pitching & Value Proposition</h3>
+            <ul>
+                <li><strong>Shark Tank Winner (QMS Salt Lake Fest):</strong> Structured the project strategy, crafted the value proposition, and delivered the live pitch presentation to judges.</li>
+                <li><strong>Diplomatic Presentation:</strong> Received a Verbal Mention at CBS Model United Nations for active diplomatic debate and clarity.</li>
+            </ul>
         </div>
 
-        <!-- Panel 2 -->
-        <div id="ai" class="content-panel">
-            <h3 style="margin-top:0; color: var(--accent-color);">Practical AI & Software Experimentation</h3>
-            <p><strong>Desktop AI Voice Assistant (JARVIS-style):</strong> Directed Claude Code to build a functional voice assistant prototype locally[cite: 1]. Iteratively tested, debugged, and prompted fixes through several developer cycles[cite: 1].</p>
-            <p><strong>Workflow Thinking:</strong> Focuses on hands-on application of Claude, Gemini API, and prompt engineering to streamline execution without manual line-by-line coding[cite: 1].</p>
+        <div id="tech" class="panel-content">
+            <h3 style="margin-top:0; color:var(--accent);">Practical AI Execution</h3>
+            <ul>
+                <li><strong>Voice Assistant (JARVIS-style):</strong> Directed Claude Code to construct a local desktop voice assistant. Managed iterative testing, debugging, and prompt adjustments.</li>
+                <li><strong>Workflow Automation:</strong> Leverages Gemini API, Claude, and AI tools for rapid problem-solving without manual coding.</li>
+            </ul>
         </div>
 
-        <!-- Panel 3 -->
-        <div id="academics" class="content-panel">
-            <h3 style="margin-top:0; color: var(--accent-color);">Business & Entrepreneurship Foundation</h3>
-            <p><strong>St. Xavier's College (Autonomous):</strong> 1st Year B.Com Student (Morning Shift)[cite: 1].</p>
-            <p><strong>IIM Bangalore:</strong> Selected for the BBA in Digital Business & Entrepreneurship (Online)[cite: 1].</p>
-            <p><strong>Don Bosco School (Park Circus):</strong> ISC Class 12 Graduate[cite: 1].</p>
+        <div id="academics" class="panel-content">
+            <h3 style="margin-top:0; color:var(--accent);">Academic & Leadership Foundation</h3>
+            <ul>
+                <li><strong>St. Xavier's College (Autonomous):</strong> B.Com 1st Year (Morning Shift).</li>
+                <li><strong>IIM Bangalore:</strong> Selected for BBA in Digital Business & Entrepreneurship (Online).</li>
+                <li><strong>Don Bosco School (Park Circus):</strong> ISC Class 12 .</li>
+            </ul>
         </div>
     </div>
 
-    <!-- Interactive Call to Action -->
-    <div class="cta-section">
-        <button class="approve-btn" onclick="triggerApproval()">Approve Candidate for Round 2 Interview</button>
-        <div id="statusMessage" class="status-message">Selection Confirmed! Looking forward to the interview round.</div>
+    <!-- Interactive Button -->
+    <button class="action-btn" onclick="approveCandidate()">Confirm Selection for Interview Round</button>
+    <div id="successBanner" class="success-banner">
+        🎉 Candidate Selection Confirmed! Ready for Round 2.
     </div>
 </div>
 
 <script>
-    function showTab(tabId) {
-        // Hide all panels
-        document.querySelectorAll('.content-panel').forEach(panel => {
-            panel.classList.remove('active');
-        });
-        // Deactivate all buttons
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
+    function activateTab(tabId, percentage) {
+        // Toggle Active Tabs
+        document.querySelectorAll('.panel-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-card').forEach(el => el.classList.remove('active'));
 
-        // Activate selected tab & panel
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
+
+        // Update Score Bar
+        document.getElementById('progressFill').style.width = percentage + '%';
+        document.getElementById('scoreText').innerText = percentage + '% Evaluated';
     }
 
-    function triggerApproval() {
-        // Fire confetti animation
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
+    function approveCandidate() {
+        // Full Score Fill
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('scoreText').innerText = '100% Selected!';
+        document.getElementById('scoreText').style.color = '#4ade80';
 
-        // Show confirmation text
-        document.getElementById('statusMessage').style.display = 'block';
+        // Launch Confetti from both corners
+        confetti({ particleCount: 60, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 60, angle: 120, spread: 55, origin: { x: 1 } });
+
+        // Show Success Message
+        document.getElementById('successBanner').style.display = 'block';
     }
 </script>
 
